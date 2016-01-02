@@ -11,7 +11,7 @@
 #include <asm/pgtable.h>
 #include <asm/uaccess.h>
 
-#define AUDIT_ENTRY_PML4E if(0)
+#define AUDIT_ENTRY_PML4E if(1)
 #define AUDIT_ENTRY_PDPTE if(0)
 #define AUDIT_ENTRY_PDE if(0)
 #define AUDIT_ENTRY_PTE if(1)
@@ -58,7 +58,7 @@ void manage_entry(int level, int index,void *entry){
                         break;
 	}
 	
-	if(level == 3)	return;
+	if(level == 1)	return;
 
 	walk_table(level+1,index,real_address_va);
 }
