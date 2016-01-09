@@ -38,16 +38,15 @@ void manage_entry(int level, int index,void *entry){
 
 	if(level == 3)	return;
 	
-	
+		
 	// Check if 5 bit is 1 -> linear address so this is one page
-	if(CHECK_BIT((int)entry,5)==1 && CHECK_BIT((int)entry,2)==0){
-		printk(KERN_ERR "Level:%d Index:%d KERNEL PAGE\n",level,index);
-		tot_kernel_page++;
+	if(CHECK_BIT((int)entry,8)!=0 || CHECK_BIT((int)entry,1)==0){
+//		printk(KERN_ERR "Level:%d Index:%d KERNEL PAGE\n",level,index);
+//		tot_kernel_page++;
 		return;
-	} 
+	}
 
 	control_bit = (void *)((ulong) entry & 0x0000000000000fff);
-	if(level == 2) printk(KERN_ERR "PTE %d: \t Control_bit:%p\n",index,control_bit);
       	address = (void *)((ulong) entry & 0xfffffffffffff000);
      	real_address_pa = address;
       	real_address_va = __va(real_address_pa);
@@ -143,7 +142,8 @@ void walk_table(int level, int index_parent, void **table){
 	
 	for(index=0; index<count; index++){
 		if(table[index]!=NULL){
-			if(level != 3 || CHECK_BIT((int)table[index],2)!=0) manage_entry(level,index,table[index]);
+		/*	if(level != 3 || CHECK_BIT((int)table[index],2)!=0) */manage_entry(level,index,table[index]);
+			/*
 			else if(CHECK_BIT((int)table[index],2)==0){
 				switch(level){
 					case 0:
@@ -157,6 +157,7 @@ void walk_table(int level, int index_parent, void **table){
 						break;
 				}
 			}
+			*/
 		}	
 	}
 
