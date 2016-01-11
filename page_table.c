@@ -37,7 +37,7 @@ void manage_entry(int level, int index,void *entry){
 	control_bit = (void *)((ulong) entry & 0x0000000000000fff);
 
       	if(level != 0)
-		address = (void *)((ulong) entry & 0x7FFFFFFFFFFFF000);
+		address = (void *)((ulong) entry & 0x07FFFFFFFFFFF000);
 	else
 		address = (void *)((ulong) entry & 0xfffffffffffff000);
 	
